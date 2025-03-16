@@ -1,0 +1,42 @@
+$dark-blue: #0B3157;
+$mid-blue: #0C4278;
+$light-blue: #2592FE;
+$light-blue-2: #217DD8;
+$gray: #707070;
+$light-gray: #DFDFDF;
+
+* {
+  font-family: Roboto;
+}
+
+app-main {
+  width: 100%;
+}
+
+.btn {
+  border-radius: 2px;
+}
+
+.btn-info {
+  color: #ffffff;
+  background-color: $light-blue-2;
+  border-color: $light-blue-2;
+}
+
+.btn-info:hover {
+  background-color: darken($light-blue-2, 10);
+  border-color: darken($light-blue-2, 10);
+}
+
+@font-face {
+  font-family: 'entypo';
+  src: url('/fonts/entypo-master/font/entypo.eot');
+  src: url('/fonts/entypo-master/font/entypo.woff') format('woff'),
+  url('/fonts/entypo-master/font/entypo.ttf') format('truetype'),
+  url('/fonts/entypo-master/font/entypo.svg#EntypoRegular') format('svg'),
+  url('/fonts/entypo-master/font/entypo.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+

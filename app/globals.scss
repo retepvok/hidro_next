@@ -1,0 +1,104 @@
+/* Import Bootstrap CSS */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'common';
+
+.header {
+  padding: 0 10px;
+  background-color: $dark-blue;
+  min-height: 75px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+
+  > #align {
+    > #brand {
+      line-height: 75px;
+      display: inline-block;
+    }
+
+    > #toggler {
+      float: right;
+      line-height: 75px;
+      display: inline-block;
+    }
+
+    > #navitems {
+      overflow: hidden;
+      max-height: 0px;
+
+      > div {
+        text-align: right;
+        display: block;
+        margin-bottom: 10px;
+
+        > a {
+          font-size: 20px;
+          color: #ffffff;
+          font-weight: 300;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 576px) {
+  .header {
+    padding: 0px;
+    height: 75px;
+
+    > #align {
+      margin: 0 auto;
+      max-width: 850px;
+
+      > #brand:hover {
+        filter: drop-shadow(0 0 1px #fff);
+      }
+
+      > #toggler {
+        display: none;
+      }
+
+      > #navitems {
+        display: inline-block;
+        height: 75px;
+        line-height: 75px;
+        overflow: visible;
+
+        > div {
+          margin-left: 50px;
+          display: inline-block;
+
+          > a {
+            font-size: 20px;
+            color: #ffffff;
+            font-weight: 300;
+
+            &:hover {
+              text-decoration: none;
+              text-shadow: 0 0 1px #fff;
+            }
+
+            &.active {
+              border-bottom: 2px solid $light-blue;
+              padding-bottom: 2px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  #brand {
+    margin-left: 15px;
+  }
+}
+
+.container-fluid {
+  width: 100%;
+  > div {
+    max-width: 850px;
+    margin: 0 auto;
+  }
+}
+
+
