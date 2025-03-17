@@ -5,7 +5,6 @@ import './layout.scss';
 import Height_adjuster from "./components/height_adjuster";
 import NavigationBar from "./components/header/header";
 import {roboto} from './fonts';
-import {usePathname} from "next/navigation";
 
 
 export default function RootLayout({
@@ -13,11 +12,6 @@ export default function RootLayout({
                                    }: {
     children: React.ReactNode
 }) {
-    const pathname = usePathname();
-    const routeClass = pathname === '/'
-        ? 'home-page'
-        : pathname.replace(/\//g, '-').substring(1) || 'home-page';
-
     return (
         <html lang="en">
         <head>
@@ -26,7 +20,7 @@ export default function RootLayout({
             <meta name="viewport" content="width=device-width, initial-scale=1"/>
             <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
         </head>
-        <body className={`${roboto.className} route-${routeClass}`}>
+        <body className={roboto.className}>
         <Height_adjuster/>
         <NavigationBar/>
         {children}

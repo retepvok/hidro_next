@@ -1,5 +1,6 @@
 import './page.scss'
 import React from "react";
+import Link from "next/link";
 
 export default function Page() {
     return (
@@ -22,7 +23,7 @@ export default function Page() {
                                     <h1>Üdvözli a Hidroworks!</h1>
                                     <p>Minikotró, rakodógép és hidraulika szervíz.</p>
                                     <p>Munkagép bérlés.</p>
-                                    <div className="btn btn-info">Tovább</div>
+                                    <Link href={"/about"}><div className="btn btn-info">Tovább</div></Link>
                                 </div>
                             </div>
                         </div>
