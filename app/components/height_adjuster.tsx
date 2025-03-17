@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-export default function HeightAdjuster() {
+export default function Height_adjuster() {
   const updateHeight = () => {
     const headerHeight = 75; // Your header height in pixels
     const windowHeight = window.innerHeight;

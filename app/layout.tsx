@@ -1,13 +1,23 @@
-import React from 'react';
+'use client';
+import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './globals.scss';
-import HeightAdjuster from "./components/HeightAdjuster";
+import './layout.scss';
+import Height_adjuster from "./components/height_adjuster";
+import NavigationBar from "./components/header/header";
+import {roboto} from './fonts';
+import {usePathname} from "next/navigation";
+
 
 export default function RootLayout({
                                        children,
                                    }: {
     children: React.ReactNode
 }) {
+    const pathname = usePathname();
+    const routeClass = pathname === '/'
+        ? 'home-page'
+        : pathname.replace(/\//g, '-').substring(1) || 'home-page';
+
     return (
         <html lang="en">
         <head>
@@ -16,36 +26,9 @@ export default function RootLayout({
             <meta name="viewport" content="width=device-width, initial-scale=1"/>
             <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
         </head>
-        <body>
-        <HeightAdjuster/>
-        <div className="header">
-            <div id="align">
-                <div id="brand">
-                    <a>
-                        <img src="/images/logo.png"/>
-                    </a>
-                </div>
-                <div id="toggler">
-                    <a>
-                        <img src="/images/menu-icon.svg"/>
-                    </a>
-                </div>
-                <div id="navitems">
-                    <div>
-                        <a>Rólunk</a>
-                    </div>
-                    <div>
-                        <a>Munkáink</a>
-                    </div>
-                    <div>
-                        <a>Bérelhető gépek</a>
-                    </div>
-                    <div>
-                        <a>Elérhetőség</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <body className={`${roboto.className} route-${routeClass}`}>
+        <Height_adjuster/>
+        <NavigationBar/>
         <div className="container-fluid">
             <div>
                 {children}

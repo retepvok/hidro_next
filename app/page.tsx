@@ -2,7 +2,7 @@ import './page.scss'
 
 export default function Page() {
     return (
-        <div className="container-fluid">
+        <div className="container-fluid" style={{padding:0}}>
             <div className='auto_height'>
                 <div>
                     <div className="to_hide">
