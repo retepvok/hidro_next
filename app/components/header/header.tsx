@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import "./header.scss"
 import Link from "next/link";
+import Image from "next/image";
 import {usePathname} from "next/navigation";
 
 export default function NavigationBar() {
@@ -24,7 +25,7 @@ export default function NavigationBar() {
             <div id="align">
                 <div id="brand">
                     <Link href={"/"}>
-                        <img src="/images/logo.png"/>
+                        <img src="/images/logo.png" alt="Logo of the company"/>
                     </Link>
                 </div>
                 <div id="toggler" onClick={toggleNav}>
@@ -37,7 +38,7 @@ export default function NavigationBar() {
                         <Link href={"/about"}  className={isActive('/about') ? 'active' : ''}>Rólunk</Link>
                     </div>
                     <div>
-                        <Link href={"/"}>Munkáink</Link>
+                        <Link href={"/references"} className={isActive('/references') ? 'active' : ''}>Munkáink</Link>
                     </div>
                     <div>
                         <Link href={"/"}>Bérelhető gépek</Link>

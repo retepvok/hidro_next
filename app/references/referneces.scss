@@ -1,0 +1,107 @@
+@import "../../../styles";
+
+h4 {
+  line-height: 29px;
+  font-size: 24px;
+  margin: 33px 0 25px 0;
+  font-weight: 400;
+}
+
+h5 {
+  padding-top: 18px;
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 400;
+}
+
+entypo {
+  float: right;
+}
+
+p {
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 300;
+  color: $gray;
+}
+
+.thumbnails {
+  > div {
+    display: inline-block;
+    &.spacer {
+      width: 4%;
+    }
+    &:not(.spacer) {
+      width: 48%;
+      height: 0px;
+      padding-top: 28.13%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+}
+
+.ofh {
+  overflow-x: hidden;
+}
+
+.bb {
+  margin-top: 11px;
+  width: 100%;
+  height: 1px;
+  background-color: $light-gray;
+}
+
+.btn {
+  font-size: 14px !important;
+  padding: 7px;
+  margin-right: 16px;
+  color: $gray !important;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 3px !important;
+}
+
+.btn-primary {
+  background-color: rgba(0, 0, 0, 0) !important;
+  border-color: rgba(0, 0, 0, 0) !important;
+  &.active {
+    background-color: $light-gray !important;
+    border-color: $light-gray !important
+  }
+}
+
+@media (min-width: 576px) {
+  entypo{
+    display: none;
+  }
+  .thumbnails {
+    >*{
+      cursor: pointer;
+    }
+    > div {
+      &:first-child {
+        width: 100%;
+        padding-top: 56.25%;
+      }
+      &:not(:first-child) {
+        display: none;
+      }
+    }
+  }
+  h4 {
+    display: inline-block;
+  }
+  .btn {
+    margin-top: -2px;
+    &.btn-first {
+      margin-left: 32px;
+    }
+    display: inline-block;
+  }
+}
+
+.ot {
+  transition: opacity 200ms linear;
+}
