@@ -29,11 +29,7 @@ export default function RootLayout({
         <body className={`${roboto.className} route-${routeClass}`}>
         <Height_adjuster/>
         <NavigationBar/>
-        <div className="container-fluid">
-            <div>
-                {children}
-            </div>
-        </div>
+        {children}
         </body>
         </html>
     )

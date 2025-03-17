@@ -4,18 +4,11 @@
 
 .container-fluid {
   width: 100%;
-  background-color: #ffffff;
-
   > div {
     max-width: 850px;
     margin: 0 auto;
   }
 }
 
-body.route-home-page {
-  .container-fluid {
-    background-color: $mid-blue;
-  }
-}
 
 

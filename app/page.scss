@@ -9,7 +9,6 @@
 }
 
 .container-fluid {
-
   > div {
     width: 100%;
 
@@ -35,6 +34,10 @@
       }
     }
   }
+}
+
+.blue_bg {
+  background-color: $mid-blue;
 }
 
 @media (min-width: 576px) {
