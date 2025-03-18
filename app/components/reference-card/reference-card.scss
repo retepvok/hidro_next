@@ -1,0 +1,28 @@
+@import "../../common";
+
+h5 {
+  margin-bottom: 1rem;
+}
+
+.thumbnails-container {
+  margin-bottom: 1rem;
+}
+
+.thumbnails {
+  div {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 4px;
+    
+    @media (max-width: 768px) {
+      height: 150px;
+    }
+    
+    @media (max-width: 576px) {
+      height: 120px;
+    }
+  }
+}
+
+// Additional responsive styles can be added here if needed

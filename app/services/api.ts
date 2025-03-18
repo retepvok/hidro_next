@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { getBaseUrl } from '../utils/url';
 
 const api = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337/api/',
+    baseURL: getBaseUrl(),
 });
 
 export default api;

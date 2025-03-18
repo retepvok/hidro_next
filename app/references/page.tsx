@@ -1,31 +1,68 @@
 "use client";
 
-import {useEffect, useRef, useState} from 'react';
+import { useEffect, useState } from 'react';
 import "./referneces.scss";
 import api from '../services/api';
+import ReferenceCard from '../components/reference-card/reference-card';
 
 export default function Page() {
     const [categories, setCategories] = useState([]);
-    const [references, setReferences] = (useState([]));
+    const [references, setReferences] = useState([]);
     const [category, setCategory] = useState("all");
+    const [selectedReferences, selectReferences] = useState([]);
+    const [className, setClassName] = useState("col-12");
 
     useEffect(() => {
         const fetchReferences = async () => {
             try {
-                const response = await api.get('reference-categories');
+                const response = await api.get('/api/reference-categories');
                 setCategories(response.data.data);
-                const response_2 = await api.get("refernces")
-                setReferences(response_2.data.data)
+                const response_2 = await api.get("/api/refernces");
+                const refsData = response_2.data.data;
+                setReferences(refsData);
+                selectReferences(refsData); // Initialize with all references
             } catch (error) {
                 console.error('Error fetching references:', error);
             }
         };
         fetchReferences();
+        
+        // Set responsive class based on window width
+        const handleResize = () => {
+            if (window.innerWidth >= 992) {
+                setClassName("col-4"); // 3 items per row on large screens
+            } else if (window.innerWidth >= 768) {
+                setClassName("col-6"); // 2 items per row on medium screens
+            } else {
+                setClassName("col-12"); // 1 item per row on small screens
+            }
+        };
+        
+        handleResize(); // Initial call
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     function show(cat, event = null) {
         setCategory(cat);
+        if (cat === "all") {
+            selectReferences(references);
+            return;
+        }
+
+        selectReferences(references.filter((ref) => ref.reference_categories.some(category => category.id === cat)));
     }
+
+    // Group references into rows (optional, for layout purposes)
+    const groupReferencesIntoRows = (refs, itemsPerRow = 3) => {
+        const rows = [];
+        for (let i = 0; i < refs.length; i += itemsPerRow) {
+            rows.push(refs.slice(i, i + itemsPerRow));
+        }
+        return rows;
+    };
+
+    const referenceRows = groupReferencesIntoRows(selectedReferences, className === "col-4" ? 3 : className === "col-6" ? 2 : 1);
 
     return (
         <div className="container-fluid">
@@ -49,37 +86,18 @@ export default function Page() {
                         </div>
                     ))}
                 </div>
-                {/*<div *ngFor="let row of references; let i = index">*/}
-                {/*  <div class="row row-eq-height">*/}
-                {/*    <div [class]="className" *ngFor="let gal of row" (click)="openGal(gal)">*/}
-                {/*      <h5>{{gal.name}}*/}
-                {/*        <entypo name="down-open-big" [hidden]="gal.opened"></entypo>*/}
-                {/*        <entypo name="up-open-big" [hidden]="!gal.opened"></entypo>*/}
-                {/*      </h5>*/}
-                {/*    </div>*/}
-                {/*  </div>*/}
-                {/*  <div class="row row-eq-height ofh">*/}
-                {/*    <div [class]="className" *ngFor="let gal of row" [@hideShow]="gal.opened ? 'show' : 'hide'">*/}
-                {/*      <p>{{gal.description}}</p>*/}
-                {/*    </div>*/}
-                {/*  </div>*/}
-                {/*  <div class="row row-eq-height ofh">*/}
-                {/*    <div [class]="className" *ngFor="let gal of row" [@hideShow]="gal.opened ? 'show' : 'hide'" (click)="openGallery(gal)">*/}
-                {/*      <div class="thumbnails">*/}
-                {/*        <div [style.backgroundImage]="getThumImgUrl(gal,0)">*/}
-                {/*        </div>*/}
-                {/*        <div class="spacer"></div>*/}
-                {/*        <div [style.backgroundImage]="getThumImgUrl(gal,1)">*/}
-                {/*        </div>*/}
-                {/*      </div>*/}
-                {/*    </div>*/}
-                {/*  </div>*/}
-                {/*  <div class="row row-eq-height ofh">*/}
-                {/*    <div [class]="className" *ngFor="let gal of row">*/}
-                {/*      <div class="bb"></div>*/}
-                {/*    </div>*/}
-                {/*  </div>*/}
-                {/*</div>*/}
+                
+                {referenceRows.map((row, rowIndex) => (
+                    <div className="row row-eq-height" key={`row-${rowIndex}`}>
+                        {row.map(ref => (
+                            <ReferenceCard 
+                                key={ref.id} 
+                                reference={ref} 
+                                className={className}
+                            />
+                        ))}
+                    </div>
+                ))}
             </div>
         </div>
     )
