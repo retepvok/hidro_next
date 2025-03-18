@@ -1,4 +1,4 @@
-@import "../../../styles";
+@import "../common";
 
 h4 {
   line-height: 29px;
@@ -26,7 +26,7 @@ p {
 }
 
 .thumbnails {
-  > div {
+  div {
     display: inline-block;
     &.spacer {
       width: 4%;
@@ -53,6 +53,14 @@ p {
   background-color: $light-gray;
 }
 
+.buttons-container {
+  @media (min-width: 576px) {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}
+
 .btn {
   font-size: 14px !important;
   padding: 7px;
@@ -77,10 +85,10 @@ p {
     display: none;
   }
   .thumbnails {
-    >*{
+    * {
       cursor: pointer;
     }
-    > div {
+    div {
       &:first-child {
         width: 100%;
         padding-top: 56.25%;
@@ -92,11 +100,13 @@ p {
   }
   h4 {
     display: inline-block;
+    margin-right: 15px;
+    vertical-align: middle;
   }
   .btn {
     margin-top: -2px;
     &.btn-first {
-      margin-left: 32px;
+      margin-left: 0;
     }
     display: inline-block;
   }

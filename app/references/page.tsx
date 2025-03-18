@@ -1,21 +1,55 @@
-export default function Page() {
-    let category = "all"
+"use client";
 
-    function setCategory(category) {
-        category = category
+import {useEffect, useRef, useState} from 'react';
+import "./referneces.scss";
+import api from '../services/api';
+
+export default function Page() {
+    const [categories, setCategories] = useState([]);
+    const [references, setReferences] = (useState([]));
+    const [category, setCategory] = useState("all");
+
+    useEffect(() => {
+        const fetchReferences = async () => {
+            try {
+                const response = await api.get('reference-categories');
+                setCategories(response.data.data);
+                const response_2 = await api.get("refernces")
+                setReferences(response_2.data.data)
+            } catch (error) {
+                console.error('Error fetching references:', error);
+            }
+        };
+        fetchReferences();
+    }, []);
+
+    function show(cat, event = null) {
+        setCategory(cat);
     }
 
     return (
         <div className="container-fluid">
             <div>
-                <h4>
-                    Referenciák
-                </h4>
-                <div class="btn btn-primary btn-first" (click)="show('all')" [ngClass]="{'active':category == 'all'}">Összes</div>
-                {/*<ng-container *ngFor="let cat of categories | keyvalue ">*/}
-                {/*  <div class="btn btn-primary" (click)="show(cat.key, $event)" [ngClass]="{'active':category == cat.key}">{{cat.value}}</div>*/}
-                {/*</ng-container>*/}
-                {/*<div *ngFor="let row of orderedGalleries; let i = index">*/}
+                <div className="buttons-container">
+                    <h4>
+                        Referenciák
+                    </h4>
+                    <div
+                        className={`btn btn-primary btn-first ${category === 'all' ? 'active' : ''}`}
+                        onClick={() => show('all')}
+                    >
+                        Összes
+                    </div>
+                    {categories.map((cat) => (
+                        <div key={cat.id}
+                             className={`btn btn-primary ${category === cat.id ? 'active' : ''}`}
+                             onClick={(e) => show(cat.id, e)}
+                        >
+                            {cat.name}
+                        </div>
+                    ))}
+                </div>
+                {/*<div *ngFor="let row of references; let i = index">*/}
                 {/*  <div class="row row-eq-height">*/}
                 {/*    <div [class]="className" *ngFor="let gal of row" (click)="openGal(gal)">*/}
                 {/*      <h5>{{gal.name}}*/}
