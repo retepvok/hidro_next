@@ -17,8 +17,9 @@ interface Picture {
 }
 
 interface Image{
-  id:number;
+  id: number;
   picture: Picture;
+  description?: string;
 }
 
 interface ImageGalleryProps {
@@ -30,9 +31,16 @@ interface ImageGalleryProps {
 export default function ImageGallery({ images, initialIndex = 0, onClose }: ImageGalleryProps) {
   const [index, setIndex] = useState(initialIndex);
 
-  const slides = images.map(image => ({
-    src: `${getBaseUrl()}${image.picture.url}`,
-  }));
+  const slides = images.map(image => {
+    // Handle case where image or image.picture might be undefined
+    if (!image || !image.picture || !image.picture.url) {
+      return { src: '', description: '' }; // Return empty src as fallback
+    }
+    return {
+      src: `${getBaseUrl()}${image.picture.url}`,
+      description: image.description || '',
+    };
+  });
 
   return (
     <Lightbox

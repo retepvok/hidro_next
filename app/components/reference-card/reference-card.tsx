@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import './reference-card.scss';
-import { getBaseUrl } from '../../utils/url';
+import {getBaseUrl} from '../../utils/url';
 import api from '../../services/api';
 import dynamic from 'next/dynamic';
 
 // Dynamically import the ImageGallery component to avoid SSR issues with the lightbox
 const ImageGallery = dynamic(() => import('../image-gallery/image-gallery'), {
-  ssr: false
+    ssr: false
 });
 
 interface Picture {
@@ -17,19 +17,22 @@ interface Picture {
     url: string;
 }
 
-interface Image{
+interface Image {
     id: number;
     picture: Picture;
 }
+
 interface Reference {
     id: string | number;
     name: string;
+    description?: string;
     thumbnail?: Image;
 }
 
 interface ReferenceDetail {
     id: string | number;
     name: string;
+    description?: string;
     images?: Image[]
 }
 
@@ -38,7 +41,7 @@ interface ReferenceProps {
     className?: string;
 }
 
-export default function ReferenceCard({reference, className = "col-12"}: ReferenceProps) {
+export default function ReferenceCard({reference, className = "col-12", hasDescription = false}: ReferenceProps) {
     const [showGallery, setShowGallery] = useState(false);
     const [referenceDetail, setReferenceDetail] = useState<ReferenceDetail | null>(null);
     const [loading, setLoading] = useState(false);
@@ -78,7 +81,7 @@ export default function ReferenceCard({reference, className = "col-12"}: Referen
             return referenceDetail.images;
         }
         // Fallback to thumbnail if no images in detail
-        return reference.thumbnail ? [reference.thumbnail.picture] : [];
+        return reference.thumbnail ? [reference.thumbnail] : [];
     };
 
     return (
@@ -93,13 +96,24 @@ export default function ReferenceCard({reference, className = "col-12"}: Referen
                 </div>
             </div>
 
+            {/* Description section - always render the container for consistent height */}
+            {hasDescription && (
+                <div className="reference-description">
+                    {reference.description ? (
+                        <p>{reference.description}</p>
+                    ) : (
+                        <p className="invisible-placeholder">placeholder</p>
+                    )}
+                </div>
+            )}
+
             {/* Bottom divider */}
             <div className="bb"></div>
-            
+
             {/* Gallery modal */}
             {showGallery && getGalleryImages().length > 0 && (
-                <ImageGallery 
-                    images={getGalleryImages()} 
+                <ImageGallery
+                    images={getGalleryImages()}
                     initialIndex={0}
                     onClose={handleCloseGallery}
                 />

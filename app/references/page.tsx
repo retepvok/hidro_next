@@ -21,6 +21,7 @@ export default function Page() {
                 const refsData = response_2.data.data;
                 setReferences(refsData);
                 selectReferences(refsData); // Initialize with all references
+                console.log(references.some((ref)=>!!ref.description));
             } catch (error) {
                 console.error('Error fetching references:', error);
             }
@@ -94,6 +95,7 @@ export default function Page() {
                                 key={ref.id} 
                                 reference={ref} 
                                 className={className}
+                                hasDescription={references.some((ref)=>!!ref.description)}
                             />
                         ))}
                     </div>
