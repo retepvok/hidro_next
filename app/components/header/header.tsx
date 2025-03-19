@@ -44,7 +44,7 @@ export default function NavigationBar() {
                         <Link href={"/"}>Bérelhető gépek</Link>
                     </div>
                     <div>
-                        <Link href={"/"}>Elérhetőség</Link>
+                        <Link href={"/contact"}>Elérhetőség</Link>
                     </div>
                 </div>
             </div>
