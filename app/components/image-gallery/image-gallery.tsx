@@ -4,11 +4,11 @@ import { useState } from 'react';
 import Lightbox from 'yet-another-react-lightbox';
 import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
 import Zoom from 'yet-another-react-lightbox/plugins/zoom';
+import Captions from 'yet-another-react-lightbox/plugins/captions';
 import 'yet-another-react-lightbox/styles.css';
 import 'yet-another-react-lightbox/plugins/thumbnails.css';
+import 'yet-another-react-lightbox/plugins/captions.css';
 import { getBaseUrl } from '../../utils/url';
-
-
 
 interface Picture {
   id: string | number;
@@ -48,7 +48,8 @@ export default function ImageGallery({ images, initialIndex = 0, onClose }: Imag
       close={onClose}
       index={index}
       slides={slides}
-      plugins={[Thumbnails, Zoom]}
+      plugins={[Thumbnails, Zoom, Captions]}
+      captions={{ descriptionTextAlign: "center" }}
       controller={{ closeOnBackdropClick: true }}
     />
   );
