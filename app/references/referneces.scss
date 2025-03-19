@@ -32,9 +32,9 @@ p {
       width: 4%;
     }
     &:not(.spacer) {
-      width: 48%;
+      width: 100%;
       height: 0px;
-      padding-top: 28.13%;
+      padding-top: 75%;
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
@@ -91,7 +91,9 @@ p {
     div {
       &:first-child {
         width: 100%;
-        padding-top: 56.25%;
+        padding-top: 75%; /* 4:3 aspect ratio for more height */
+        height: 0;
+        position: relative;
       }
       &:not(:first-child) {
         display: none;

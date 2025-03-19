@@ -6,6 +6,7 @@ h5 {
 
 .thumbnails-container {
   margin-bottom: 1rem;
+  cursor: pointer;
 }
 
 .thumbnails {
@@ -14,15 +15,22 @@ h5 {
     background-size: cover;
     background-position: center;
     border-radius: 4px;
+    transition: transform 0.3s ease;
+    
+    &:hover {
+      transform: scale(1.02);
+    }
     
     @media (max-width: 768px) {
       height: 150px;
     }
-    
+
     @media (max-width: 576px) {
-      height: 120px;
+      height: 0;
+      padding-top: 75%; /* 4:3 aspect ratio for more height */
+      position: relative;
     }
   }
 }
 
-// Additional responsive styles can be added here if needed
+

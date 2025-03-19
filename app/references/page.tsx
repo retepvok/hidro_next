@@ -17,7 +17,7 @@ export default function Page() {
             try {
                 const response = await api.get('/api/reference-categories');
                 setCategories(response.data.data);
-                const response_2 = await api.get("/api/refernces");
+                const response_2 = await api.get("/api/references");
                 const refsData = response_2.data.data;
                 setReferences(refsData);
                 selectReferences(refsData); // Initialize with all references
