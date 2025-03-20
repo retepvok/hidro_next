@@ -41,10 +41,10 @@ export default function NavigationBar() {
                         <Link href={"/references"} className={isActive('/references') ? 'active' : ''}>Munkáink</Link>
                     </div>
                     <div>
-                        <Link href={"/"}>Bérelhető gépek</Link>
+                        <Link href={"/for_rent"} className={isActive('/for_rent') ? 'active' : ''}>Bérelhető gépek</Link>
                     </div>
                     <div>
-                        <Link href={"/contact"}>Elérhetőség</Link>
+                        <Link href={"/contact"} className={isActive('/contact') ? 'active' : ''}>Elérhetőség</Link>
                     </div>
                 </div>
             </div>

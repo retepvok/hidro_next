@@ -1,5 +1,13 @@
 @import '../common';
 
+
+.about p{
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 400;
+  color: $gray;
+}
+
 h4 {
   line-height: 29px;
   font-size: 24px;
@@ -21,7 +29,8 @@ h5 {
 
 .a_logo {
   width: 143px;
-  margin-bottom: 32px;
+  margin-top: 6px;
+  margin-bottom: 28px;
   display: none;
 }
 
@@ -60,13 +69,13 @@ h5 {
 }
 
 @media (max-width: 992px) {
-  .route-about p {
+  p {
     font-size: 16px;
   }
 }
 
 @media (min-width: 1680px) {
-  .route-about p {
+  p {
     font-size: 16px
   }
 }

@@ -1,9 +1,11 @@
+"use server"
+
 import "./about.scss"
 
-export default function Page() {
+export default async function Page() {
     return (
         <div className="container-fluid">
-            <div>
+            <div className={"about"}>
                 <div className="row">
                     <div className="col-12 pg-10">
                         <h4>Cégismertető</h4>
