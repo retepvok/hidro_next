@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Page() {
     return (
         <div className="container-fluid blue_bg">
-            <div>
+            <div className="main">
                 <div className="container-fluid" style={{padding: 0}}>
                     <div className='auto_height'>
                         <div>
