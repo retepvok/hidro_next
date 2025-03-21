@@ -9,6 +9,7 @@ import Video from 'yet-another-react-lightbox/plugins/video';
 import 'yet-another-react-lightbox/styles.css';
 import 'yet-another-react-lightbox/plugins/thumbnails.css';
 import 'yet-another-react-lightbox/plugins/captions.css';
+import './image-gallery.css';
 import {getBaseUrl} from '../../utils/url';
 
 interface Picture {
@@ -23,6 +24,7 @@ interface Image {
     picture: Picture;
     description?: string;
     is_video?: boolean;
+    title?: string;
 }
 
 interface ImageGalleryProps {
@@ -58,6 +60,7 @@ export default function ImageGallery({images, initialIndex = 0, onClose}: ImageG
                     },
                 ],
                 description: image.description || '',
+                title: image.title || '',
             };
         }
 
@@ -65,6 +68,7 @@ export default function ImageGallery({images, initialIndex = 0, onClose}: ImageG
         return {
             src: fullUrl,
             description: image.description || '',
+            title: image.title || '',
         };
     });
 
@@ -77,13 +81,33 @@ export default function ImageGallery({images, initialIndex = 0, onClose}: ImageG
             plugins={[Thumbnails, Zoom, Captions, Video]}
             captions={{
                 descriptionTextAlign: "center",
+                titleTextAlign: "center",
+                overlayClassName: "custom-caption-overlay"
             }}
-
             controller={{closeOnBackdropClick: true}}
             video={{
                 autoPlay: false,
                 controls: true,
                 playsInline: true
+            }}
+            styles={{
+                caption: {
+                    captionContainer: { 
+                        position: "absolute", 
+                        top: "0", 
+                        bottom: "auto",
+                        background: "rgba(0, 0, 0, 0.7)",
+                        padding: "10px",
+                        width: "100%",
+                        zIndex: 10
+                    }
+                },
+                container: {
+                    padding: "60px 0 40px 0"
+                },
+                slide: {
+                    padding: "40px 0 60px 0"
+                }
             }}
         />
     );
