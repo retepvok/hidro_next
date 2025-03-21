@@ -27,6 +27,7 @@ interface Reference {
     name: string;
     description?: string;
     thumbnail?: Image;
+    price?: string;
 }
 
 interface ReferenceDetail {
@@ -92,7 +93,12 @@ export default function ReferenceCard({reference, className = "col-12", hasDescr
             {/* Thumbnails section */}
             <div className="thumbnails-container" onClick={handleOpenGallery}>
                 <div className="thumbnails">
-                    <div style={{backgroundImage: getThumImgUrl()}}></div>
+                    <div 
+                        style={{backgroundImage: getThumImgUrl()}}
+                        {...(reference.price && {
+                            'data-price': reference.price+"\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0"
+                        })}
+                    ></div>
                 </div>
             </div>
 
