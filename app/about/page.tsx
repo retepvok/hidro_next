@@ -1,5 +1,3 @@
-"use server"
-
 import "./about.scss"
 
 export default async function Page() {

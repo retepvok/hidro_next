@@ -48,7 +48,7 @@ export default function Page() {
 
     return (
         <div className="container-fluid">
-            <div>
+            <div className="reference">
                 <div className="buttons-container">
                     <h4>
                         Bérelhető gépek

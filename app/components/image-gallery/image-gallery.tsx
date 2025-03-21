@@ -59,16 +59,14 @@ export default function ImageGallery({images, initialIndex = 0, onClose}: ImageG
                         type: image.picture.contentType || 'video/mp4', // Default to mp4 if not specified
                     },
                 ],
-                description: image.description || '',
-                title: image.title || '',
+                title: image.description || '',
             };
         }
 
         // Regular image slide
         return {
             src: fullUrl,
-            description: image.description || '',
-            title: image.title || '',
+            title: image.description || '',
         };
     });
 
@@ -79,11 +77,7 @@ export default function ImageGallery({images, initialIndex = 0, onClose}: ImageG
             index={index}
             slides={slides}
             plugins={[Thumbnails, Zoom, Captions, Video]}
-            captions={{
-                descriptionTextAlign: "center",
-                titleTextAlign: "center",
-                overlayClassName: "custom-caption-overlay"
-            }}
+
             controller={{closeOnBackdropClick: true}}
             video={{
                 autoPlay: false,
@@ -91,24 +85,12 @@ export default function ImageGallery({images, initialIndex = 0, onClose}: ImageG
                 playsInline: true
             }}
             styles={{
-                caption: {
-                    captionContainer: { 
-                        position: "absolute", 
-                        top: "0", 
-                        bottom: "auto",
-                        background: "rgba(0, 0, 0, 0.7)",
-                        padding: "10px",
-                        width: "100%",
-                        zIndex: 10
-                    }
-                },
-                container: {
-                    padding: "60px 0 40px 0"
-                },
-                slide: {
-                    padding: "40px 0 60px 0"
+                captionsTitleContainer: {
+                    textAlign:"center",
+                    marginTop:"10px"
                 }
             }}
+
         />
     );
 }
