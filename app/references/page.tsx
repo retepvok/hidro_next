@@ -1,4 +1,4 @@
-import { getBaseUrl } from '../utils/url';
+import {getBaseUrl} from '../utils/url';
 import ReferenceList from './ReferenceList';
 import "./referneces.scss";
 
@@ -15,27 +15,28 @@ async function getCategories() {
 }
 
 export default async function Page({
-    searchParams,
-}: {
-    searchParams: { category?: string }
+                                       searchParams,
+                                   }: {
+    searchParams: Promise<{ category?: string }>
 }) {
     const [referencesData, categoriesData] = await Promise.all([
         getReferences(),
         getCategories()
     ]);
 
-    const selectedCategory = searchParams.category || 'all';
-    const filteredReferences = selectedCategory === 'all' 
+    const {category} = await searchParams;
+    const selectedCategory = category || 'all';
+    const filteredReferences = selectedCategory === 'all'
         ? referencesData.data
         : referencesData.data.filter((ref: any) =>
-            ref.reference_categories.some((category: any) => 
+            ref.reference_categories.some((category: any) =>
                 category.id.toString() === selectedCategory
             )
         );
 
     return (
         <div className="container-fluid">
-            <ReferenceList 
+            <ReferenceList
                 references={filteredReferences}
                 categories={categoriesData.data}
                 selectedCategory={selectedCategory}
