@@ -1,20 +1,8 @@
-"use client";
-
-import React, {useState} from 'react';
 import './contact.scss';
-import Height_adjuster from '../components/height_adjuster';
 
 export default function Page() {
-    const [lat, setLat] = useState(47.5489);
-    const [long, setLong] = useState(19.2144);
-
-    const mClick = () => {
-        window.open('https://goo.gl/maps/xNDFHF6NrCA2', '_blank');
-    };
-
     return (
         <div className="container-fluid">
-            <Height_adjuster />
             <div>
                 <div className="contact">
                     <div>
