@@ -1,106 +1,46 @@
-"use client";
-
-import { useEffect, useState } from 'react';
+import { getBaseUrl } from '../utils/url';
+import ReferenceList from './ReferenceList';
 import "./referneces.scss";
-import api from '../services/api';
-import ReferenceCard from '../components/reference-card/reference-card';
 
-export default function Page() {
-    const [categories, setCategories] = useState([]);
-    const [references, setReferences] = useState([]);
-    const [category, setCategory] = useState("all");
-    const [selectedReferences, selectReferences] = useState([]);
-    const [className, setClassName] = useState("col-12");
+async function getReferences() {
+    const res = await fetch(`${getBaseUrl()}/api/references?filters[for_rent]=0`);
+    if (!res.ok) throw new Error('Failed to fetch references');
+    return res.json();
+}
 
-    useEffect(() => {
-        const fetchReferences = async () => {
-            try {
-                const response = await api.get('/api/reference-categories');
-                setCategories(response.data.data);
-                const response_2 = await api.get("/api/references?filters[for_rent]=0");
-                const refsData = response_2.data.data;
-                setReferences(refsData);
-                selectReferences(refsData); // Initialize with all references
-                console.log(references.some((ref)=>!!ref.description));
-            } catch (error) {
-                console.error('Error fetching references:', error);
-            }
-        };
-        fetchReferences();
-        
-        // Set responsive class based on window width
-        const handleResize = () => {
-            if (window.innerWidth >= 992) {
-                setClassName("col-4"); // 3 items per row on large screens
-            } else if (window.innerWidth >= 768) {
-                setClassName("col-6"); // 2 items per row on medium screens
-            } else {
-                setClassName("col-12"); // 1 item per row on small screens
-            }
-        };
-        
-        handleResize(); // Initial call
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
+async function getCategories() {
+    const res = await fetch(`${getBaseUrl()}/api/reference-categories`);
+    if (!res.ok) throw new Error('Failed to fetch categories');
+    return res.json();
+}
 
-    function show(cat, event = null) {
-        setCategory(cat);
-        if (cat === "all") {
-            selectReferences(references);
-            return;
-        }
+export default async function Page({
+    searchParams,
+}: {
+    searchParams: { category?: string }
+}) {
+    const [referencesData, categoriesData] = await Promise.all([
+        getReferences(),
+        getCategories()
+    ]);
 
-        selectReferences(references.filter((ref) => ref.reference_categories.some(category => category.id === cat)));
-    }
-
-    // Group references into rows (optional, for layout purposes)
-    const groupReferencesIntoRows = (refs, itemsPerRow = 3) => {
-        const rows = [];
-        for (let i = 0; i < refs.length; i += itemsPerRow) {
-            rows.push(refs.slice(i, i + itemsPerRow));
-        }
-        return rows;
-    };
-
-    const referenceRows = groupReferencesIntoRows(selectedReferences, className === "col-4" ? 3 : className === "col-6" ? 2 : 1);
+    const selectedCategory = searchParams.category || 'all';
+    const filteredReferences = selectedCategory === 'all' 
+        ? referencesData.data
+        : referencesData.data.filter((ref: any) =>
+            ref.reference_categories.some((category: any) => 
+                category.id.toString() === selectedCategory
+            )
+        );
 
     return (
         <div className="container-fluid">
-            <div className="reference">
-                <div className="buttons-container">
-                    <h4>
-                        Referenciák
-                    </h4>
-                    <div
-                        className={`btn btn-primary btn-first ${category === 'all' ? 'active' : ''}`}
-                        onClick={() => show('all')}
-                    >
-                        Összes
-                    </div>
-                    {categories.map((cat) => (
-                        <div key={cat.id}
-                             className={`btn btn-primary ${category === cat.id ? 'active' : ''}`}
-                             onClick={(e) => show(cat.id, e)}
-                        >
-                            {cat.name}
-                        </div>
-                    ))}
-                </div>
-                
-                {referenceRows.map((row, rowIndex) => (
-                    <div className="row row-eq-height" key={`row-${rowIndex}`}>
-                        {row.map(ref => (
-                            <ReferenceCard 
-                                key={ref.id} 
-                                reference={ref} 
-                                className={className}
-                                hasDescription={references.some((ref)=>!!ref.description)}
-                            />
-                        ))}
-                    </div>
-                ))}
-            </div>
+            <ReferenceList 
+                references={filteredReferences}
+                categories={categoriesData.data}
+                selectedCategory={selectedCategory}
+                hasDescription={referencesData.meta.hasDescription}
+            />
         </div>
-    )
+    );
 }
