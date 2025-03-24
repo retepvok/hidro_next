@@ -16,6 +16,8 @@ services:
       - traefik.port=3000
     networks:
       - router_web
+    environment:
+      - NEXT_PUBLIC_STRAPI_API_URL=http://hw_backend:1337
 
 networks:
   router_web:
