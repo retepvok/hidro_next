@@ -1,6 +1,7 @@
 import './page.scss'
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Page() {
     return (
@@ -10,7 +11,13 @@ export default function Page() {
                     <div className='auto_height'>
                         <div>
                             <div className="to_hide">
-                                <img src="/images/main_drawing.svg"/>
+                                <Image 
+                                    src="/images/main_drawing.svg"
+                                    alt="Hidroworks main drawing"
+                                    width={500}
+                                    height={300}
+                                    priority
+                                />
                                 <div className="stf">
                                     <h1>Üdvözli a Hidroworks!</h1>
                                     <p>Minikotró, rakodógép és hidraulika szervíz.</p>

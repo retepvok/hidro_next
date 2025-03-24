@@ -1,4 +1,5 @@
 import "./about.scss"
+import Image from "next/image";
 
 export default function Page() {
     return (
@@ -11,7 +12,14 @@ export default function Page() {
                 </div>
                 <div className="row">
                     <div className="col-lg-4 pg-10">
-                        <img src="images/about_logo.svg" className="a_logo d-lg-block"/>
+                        <Image 
+                            src="/images/about_logo.svg"
+                            alt="Hidroworks logo"
+                            width={143}
+                            height={143}
+                            className="a_logo d-lg-block"
+                            priority
+                        />
                         <p>Cégünk több, mint 20 éves tapasztalattal bír járműipari precíziós hidraulika javításában. Ezt a tudást használjuk fel a hidraulika, és az alkatrészgyártás területén is.</p>
                     </div>
                     <div className="col-lg-4 pg-10">
@@ -42,7 +50,13 @@ export default function Page() {
 
                 <div className="row" id="section_bottom">
                     <div className="col-lg-4 pg-10">
-                        <img src="images/h_repair.svg" className="b_logo"/>
+                        <Image 
+                            src="/images/h_repair.svg"
+                            alt="Hidraulika javítás"
+                            width={100}
+                            height={100}
+                            className="b_logo"
+                        />
                         <h5>Hidraulika javítás</h5>
                         <p>- Munkahenger felújítás vagy gyártás akár minta vagy rajz alapján. Amennyiben szükség van, megadott paraméterek alapján, a tervezést és dokumentációt is elvégezzük</p>
                         <p> - Hidromotor javítás</p>
@@ -53,7 +67,13 @@ export default function Page() {
                         <p>- Mindennemű folyás javítása</p>
                     </div>
                     <div className="col-lg-4 pg-10">
-                        <img src="images/m_repair.svg" className="b_logo"/>
+                        <Image 
+                            src="/images/m_repair.svg"
+                            alt="Gépjavítás"
+                            width={100}
+                            height={100}
+                            className="b_logo"
+                        />
                         <h5>Gépjavítás</h5>
                         <p>- Szerviztevékenység: időszakos szervizelés, beüzemelés, átalakítás</p>
                         <p>- Nagyjavítások: motorfelújítás, fődarab javítás </p>
@@ -62,7 +82,13 @@ export default function Page() {
                         <p>- Elektromos javítás</p>
                     </div>
                     <div className="col-lg-4 pg-10">
-                        <img src="images/production.svg" className="b_logo"/>
+                        <Image 
+                            src="/images/production.svg"
+                            alt="Gépgyártás"
+                            width={100}
+                            height={100}
+                            className="b_logo"
+                        />
                         <h5>Gépgyártás</h5>
                         <p>- Építőipari gépek átalakítása egyedi igények szerint </p>
                         <p>- Egyedi gépek tervezése és legyártása a megrendelő igénye szerint</p>
