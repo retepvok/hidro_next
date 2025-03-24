@@ -27,13 +27,12 @@ h5 {
 }
 
 .thumbnails {
-  div {
+  .image-wrapper {
     height: 200px;
-    background-size: cover;
-    background-position: center;
     border-radius: 4px;
     transition: transform 0.3s ease;
     position: relative;
+    overflow: hidden;
     
     &[data-price]:not([data-price=""]):after {
       content: attr(data-price);

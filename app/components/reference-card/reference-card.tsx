@@ -1,8 +1,9 @@
 "use client";
 
-import {useState} from 'react';
+import { useState } from 'react';
+import Image from 'next/image';
 import './reference-card.scss';
-import {getBaseUrl} from '../../utils/url';
+import { getBaseUrl } from '../../utils/url';
 import api from '../../services/api';
 import dynamic from 'next/dynamic';
 
@@ -48,14 +49,6 @@ export default function ReferenceCard({reference, className = "col-12", hasDescr
     const [referenceDetail, setReferenceDetail] = useState<ReferenceDetail | null>(null);
     const [loading, setLoading] = useState(false);
 
-    // Function to get thumbnail image URL using the API URL
-    const getThumImgUrl = () => {
-        if (reference.thumbnail && reference.thumbnail.picture) {
-            return `url(${getBaseUrl()}${reference.thumbnail.picture.url})`;
-        }
-        return '';
-    };
-
     // Fetch reference details when gallery is opened
     const handleOpenGallery = async () => {
         if (!referenceDetail && !loading) {
@@ -94,12 +87,22 @@ export default function ReferenceCard({reference, className = "col-12", hasDescr
             {/* Thumbnails section */}
             <div className="thumbnails-container" onClick={handleOpenGallery}>
                 <div className="thumbnails">
-                    <div
-                        style={{backgroundImage: getThumImgUrl()}}
+                    <div className="image-wrapper"
                         {...(reference.price && {
                             'data-price': reference.price + "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0"
                         })}
-                    ></div>
+                    >
+                        {reference.thumbnail && reference.thumbnail.picture && (
+                            <Image
+                                src={`${getBaseUrl()}${reference.thumbnail.picture.url}`}
+                                alt={reference.name}
+                                fill
+                                sizes="(max-width: 576px) 100vw, (max-width: 768px) 150px, 200px"
+                                style={{objectFit: 'cover'}}
+                                priority
+                            />
+                        )}
+                    </div>
                 </div>
             </div>
 

@@ -2,7 +2,7 @@ import { getBaseUrl } from '../utils/url';
 import RentList from './RentList';
 import "../references/referneces.scss";
 
-async function getRentReferences() {
+async function getServerSideProps() {
     try {
         const res = await fetch(`${getBaseUrl()}/api/references?filters[for_rent]=true`, {
             cache: 'no-store'
@@ -16,7 +16,7 @@ async function getRentReferences() {
 }
 
 export default async function Page() {
-    const response = await getRentReferences();
+    const response = await getServerSideProps();
 
     return (
         <div className="container-fluid">

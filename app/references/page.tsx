@@ -1,23 +1,24 @@
 import {getBaseUrl} from '../utils/url';
 import ReferenceList from './ReferenceList';
 import "./referneces.scss";
-import { Reference } from '../components/reference-card/reference-card';
+import {Reference} from '../components/reference-card/reference-card';
 
 interface ReferenceCategory {
     id: number;
     name: string;
 }
 
+
 async function getReferences() {
     try {
         const res = await fetch(`${getBaseUrl()}/api/references?filters[for_rent]=0`, {
             cache: 'no-store'
         });
-        if (!res.ok) return { data: [], meta: { hasDescription: false } };
+        if (!res.ok) return {data: [], meta: {hasDescription: false}};
         return res.json();
     } catch (error) {
         console.error('Failed to fetch references:', error);
-        return { data: [], meta: { hasDescription: false } };
+        return {data: [], meta: {hasDescription: false}};
     }
 }
 
@@ -26,12 +27,17 @@ async function getCategories() {
         const res = await fetch(`${getBaseUrl()}/api/reference-categories`, {
             cache: 'no-store'
         });
-        if (!res.ok) return { data: [] };
+        if (!res.ok) return {data: []};
         return res.json();
     } catch (error) {
         console.error('Failed to fetch categories:', error);
-        return { data: [] };
+        return {data: []};
     }
+}
+
+async function getServerSideProps() {
+    const [data1, data2] = await Promise.all([getCategories(), getReferences()]);
+    return [data1, data2];
 }
 
 export default async function Page({
@@ -39,8 +45,8 @@ export default async function Page({
                                    }: {
     searchParams: Promise<{ category?: string }>
 }) {
-    const referencesData = await getReferences();
-    const categoriesData = await getCategories();
+
+    const [categoriesData,referencesData] = await getServerSideProps();
 
     const {category} = await searchParams;
     const selectedCategory = category || 'all';
