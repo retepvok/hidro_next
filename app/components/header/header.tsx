@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import "./header.scss"
 import Link from "next/link";
+import Image from "next/image";
 import {usePathname} from "next/navigation";
 
 export default function NavigationBar() {
@@ -24,12 +25,23 @@ export default function NavigationBar() {
             <div id="align">
                 <div id="brand">
                     <Link href={"/"}>
-                        <img src="/images/logo.png" alt="Logo of the company"/>
+                        <Image 
+                            src="/images/logo.png"
+                            alt="Logo of the company"
+                            width={96}
+                            height={47}
+                            priority
+                        />
                     </Link>
                 </div>
                 <div id="toggler" onClick={toggleNav}>
                     <a>
-                        <img src="/images/menu-icon.svg"/>
+                        <Image 
+                            src="/images/menu-icon.svg"
+                            alt="Menu icon"
+                            width={30}
+                            height={30}
+                        />
                     </a>
                 </div>
                 <div id="navitems" className={isNavExpanded ? "expanded" : ""}>
