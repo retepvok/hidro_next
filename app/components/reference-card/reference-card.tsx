@@ -22,7 +22,7 @@ interface Image {
     picture: Picture;
 }
 
-interface Reference {
+export interface Reference {
     id: string | number;
     name: string;
     description?: string;

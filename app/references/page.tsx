@@ -1,6 +1,23 @@
 import {getBaseUrl} from '../utils/url';
 import ReferenceList from './ReferenceList';
 import "./referneces.scss";
+import { Reference } from '../components/reference-card/reference-card';
+
+interface ReferenceCategory {
+    id: number;
+    name: string;
+}
+
+interface ReferenceData {
+    data: Reference[];
+    meta: {
+        hasDescription: boolean;
+    };
+}
+
+interface CategoryData {
+    data: ReferenceCategory[];
+}
 
 async function getReferences() {
     const res = await fetch(`${getBaseUrl()}/api/references?filters[for_rent]=0`);
@@ -28,8 +45,8 @@ export default async function Page({
     const selectedCategory = category || 'all';
     const filteredReferences = selectedCategory === 'all'
         ? referencesData.data
-        : referencesData.data.filter((ref: any) =>
-            ref.reference_categories.some((category: any) =>
+        : referencesData.data.filter((ref: Reference & { reference_categories: ReferenceCategory[] }) =>
+            ref.reference_categories.some((category) =>
                 category.id.toString() === selectedCategory
             )
         );

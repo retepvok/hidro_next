@@ -1,9 +1,15 @@
-import ReferenceCard from '../components/reference-card/reference-card';
+import ReferenceCard, { Reference } from '../components/reference-card/reference-card';
 import Link from 'next/link';
 
+
+interface Category {
+    id: number;
+    name: string;
+}
+
 interface ReferenceListProps {
-    references: any[];
-    categories: any[];
+    references: Reference[];
+    categories: Category[];
     selectedCategory: string;
     hasDescription: boolean;
 }
