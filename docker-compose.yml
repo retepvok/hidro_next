@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  nextjs-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nextjs-app
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.hidroworks.rule=Host(`dev.hidroworks.hu`)
+      - traefik.http.routers.hidroworks.entrypoints=websecure
+      - traefik.http.routers.hidroworks.tls=true
+      - traefik.http.routers.hidroworks.tls.certresolver=lets-encrypt
+      - traefik.port=3000
+    networks:
+      - router_web
+
+networks:
+  router_web:
+    external: true
