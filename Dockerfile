@@ -4,6 +4,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+ENV NEXT_PUBLIC_STRAPI_API_URL="http://hw_backend:1337"
 RUN npm run build
 
 FROM node:20-alpine AS runner
