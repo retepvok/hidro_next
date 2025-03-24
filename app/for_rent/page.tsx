@@ -3,9 +3,16 @@ import RentList from './RentList';
 import "../references/referneces.scss";
 
 async function getRentReferences() {
-    const res = await fetch(`${getBaseUrl()}/api/references?filters[for_rent]=true`);
-    if (!res.ok) throw new Error('Failed to fetch rent references');
-    return res.json();
+    try {
+        const res = await fetch(`${getBaseUrl()}/api/references?filters[for_rent]=true`, {
+            cache: 'no-store'
+        });
+        if (!res.ok) return { data: [], meta: { hasDescription: false } };
+        return res.json();
+    } catch (error) {
+        console.error('Failed to fetch references:', error);
+        return { data: [], meta: { hasDescription: false } };
+    }
 }
 
 export default async function Page() {

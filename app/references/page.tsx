@@ -9,15 +9,29 @@ interface ReferenceCategory {
 }
 
 async function getReferences() {
-    const res = await fetch(`${getBaseUrl()}/api/references?filters[for_rent]=0`);
-    if (!res.ok) throw new Error('Failed to fetch references');
-    return res.json();
+    try {
+        const res = await fetch(`${getBaseUrl()}/api/references?filters[for_rent]=0`, {
+            cache: 'no-store'
+        });
+        if (!res.ok) return { data: [], meta: { hasDescription: false } };
+        return res.json();
+    } catch (error) {
+        console.error('Failed to fetch references:', error);
+        return { data: [], meta: { hasDescription: false } };
+    }
 }
 
 async function getCategories() {
-    const res = await fetch(`${getBaseUrl()}/api/reference-categories`);
-    if (!res.ok) throw new Error('Failed to fetch categories');
-    return res.json();
+    try {
+        const res = await fetch(`${getBaseUrl()}/api/reference-categories`, {
+            cache: 'no-store'
+        });
+        if (!res.ok) return { data: [] };
+        return res.json();
+    } catch (error) {
+        console.error('Failed to fetch categories:', error);
+        return { data: [] };
+    }
 }
 
 export default async function Page({
@@ -25,10 +39,8 @@ export default async function Page({
                                    }: {
     searchParams: Promise<{ category?: string }>
 }) {
-    const [referencesData, categoriesData] = await Promise.all([
-        getReferences(),
-        getCategories()
-    ]);
+    const referencesData = await getReferences();
+    const categoriesData = await getCategories();
 
     const {category} = await searchParams;
     const selectedCategory = category || 'all';

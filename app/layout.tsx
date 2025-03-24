@@ -1,5 +1,5 @@
 'use client';
-import React, {useState} from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './layout.scss';
 import Height_adjuster from "./components/height_adjuster";

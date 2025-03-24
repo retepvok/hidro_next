@@ -1,6 +1,6 @@
 "use client";
 
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import './reference-card.scss';
 import {getBaseUrl} from '../../utils/url';
 import api from '../../services/api';
@@ -40,6 +40,7 @@ interface ReferenceDetail {
 interface ReferenceProps {
     reference: Reference;
     className?: string;
+    hasDescription?: boolean | null
 }
 
 export default function ReferenceCard({reference, className = "col-12", hasDescription = false}: ReferenceProps) {
@@ -93,10 +94,10 @@ export default function ReferenceCard({reference, className = "col-12", hasDescr
             {/* Thumbnails section */}
             <div className="thumbnails-container" onClick={handleOpenGallery}>
                 <div className="thumbnails">
-                    <div 
+                    <div
                         style={{backgroundImage: getThumImgUrl()}}
                         {...(reference.price && {
-                            'data-price': reference.price+"\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0"
+                            'data-price': reference.price + "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0"
                         })}
                     ></div>
                 </div>

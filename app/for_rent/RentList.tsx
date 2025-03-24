@@ -1,7 +1,7 @@
-import ReferenceCard from '../components/reference-card/reference-card';
+import ReferenceCard, {Reference} from '../components/reference-card/reference-card';
 
 interface RentListProps {
-    initialReferences: any[];
+    initialReferences: Reference[];
 }
 
 export default function RentList({ initialReferences }: RentListProps) {

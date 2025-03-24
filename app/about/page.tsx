@@ -1,6 +1,6 @@
 import "./about.scss"
 
-export default async function Page() {
+export default function Page() {
     return (
         <div className="container-fluid">
             <div className={"about"}>

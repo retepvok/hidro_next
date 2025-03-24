@@ -1,6 +1,5 @@
 "use client";
 
-import {useState} from 'react';
 import Lightbox from 'yet-another-react-lightbox';
 import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
 import Zoom from 'yet-another-react-lightbox/plugins/zoom';
@@ -34,8 +33,6 @@ interface ImageGalleryProps {
 }
 
 export default function ImageGallery({images, initialIndex = 0, onClose}: ImageGalleryProps) {
-    const [index, setIndex] = useState(initialIndex);
-
     const slides = images.map(image => {
         // Handle case where image or image.picture might be undefined
         if (!image || !image.picture || !image.picture.url) {
@@ -49,7 +46,7 @@ export default function ImageGallery({images, initialIndex = 0, onClose}: ImageG
         if (image.is_video) {
             // Create a video slide
             return {
-                type: 'video',
+                type: "video" as const,
                 poster: image.picture.url.endsWith('.mp4') ? '' : fullUrl, // Use image as poster if available
                 width: 1280, // Default width
                 height: 720, // Default height
@@ -74,10 +71,9 @@ export default function ImageGallery({images, initialIndex = 0, onClose}: ImageG
         <Lightbox
             open={true}
             close={onClose}
-            index={index}
+            index={initialIndex}
             slides={slides}
             plugins={[Thumbnails, Zoom, Captions, Video]}
-
             controller={{closeOnBackdropClick: true}}
             video={{
                 autoPlay: false,
