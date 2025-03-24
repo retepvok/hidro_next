@@ -8,17 +8,6 @@ interface ReferenceCategory {
     name: string;
 }
 
-interface ReferenceData {
-    data: Reference[];
-    meta: {
-        hasDescription: boolean;
-    };
-}
-
-interface CategoryData {
-    data: ReferenceCategory[];
-}
-
 async function getReferences() {
     const res = await fetch(`${getBaseUrl()}/api/references?filters[for_rent]=0`);
     if (!res.ok) throw new Error('Failed to fetch references');
