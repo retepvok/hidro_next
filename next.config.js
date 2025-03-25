@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['hw_backend'],
     remotePatterns: [
       {
         protocol: 'http',
@@ -10,10 +9,11 @@ const nextConfig = {
         pathname: '/**',
       },
       {
-        protocol: 'https',
-        hostname: 'admin.hidroworks.hu',
+        protocol: 'http',
+        hostname: 'hw_backend',  // Replace localhost with your container's service name
+        port: '1337',
         pathname: '/**',
-      }
+      },
     ],
   }
 }
