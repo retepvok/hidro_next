@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-ENV NEXT_PUBLIC_STRAPI_API_URL="http://hw_backend:1337"
+ENV NEXT_PUBLIC_STRAPI_API_URL="https://admin.hidroworks.hu"
 RUN npm run build
 
 FROM node:20-alpine AS runner
