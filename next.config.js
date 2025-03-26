@@ -12,7 +12,7 @@ const nextConfig = {
         protocol: 'http',
         hostname: 'hw_backend',  // Replace localhost with your container's service name
         port: '1337',
-        pathname: '/**',
+        pathname: '/uploads/**',
       },
     ],
   }
